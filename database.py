@@ -10,21 +10,28 @@ def create_connection(db_file):
 def create_table(conn):
     sql_create_movies_table = """
     CREATE TABLE IF NOT EXISTS movies (
-        id integer PRIMARY KEY,
-        title text NOT NULL,
-        details text NOT NULL
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        release_date VARCHAR(50),
+        overview TEXT,
+        genres VARCHAR(255),
+        rating REAL,
+        number_of_ratings INTEGER
     );"""
-    conn.execute(sql_create_movies_table)
-    conn.commit()
+    with conn.cursor() as cur:
+        cur.execute(sql_create_movies_table)
+        conn.commit()
 
 
 def insert_movie(conn, movie):
-    sql = ''' INSERT INTO movies(id, title, details)
-              VALUES(?,?,?) '''
-    cur = conn.cursor()
-    cur.execute(sql, movie)
-    conn.commit()
-    return cur.lastrowid
+    sql = ''' 
+    INSERT INTO movies (title, release_date, overview, genres, rating, number_of_ratings)
+    VALUES (%s, %s, %s, %s, %s, %s) RETURNING id;
+    '''
+    with conn.cursor() as cur:
+        cur.execute(sql, movie)
+        conn.commit()
+        return cur.fetchone()[0]
 
 
 def fetch_all_movies(conn):
@@ -42,3 +49,14 @@ def fetch_all_movies(conn):
         movies.append(movie)
 
     return movies
+
+if __name__ == "__main__":
+    db_config = {
+        'dbname': 'top_movies',
+        'user': 'postgres',
+        'password': '',
+        'host': 'localhost',
+        'port': 5432
+    }
+    conn = create_connection(db_config)
+    create_table(conn)

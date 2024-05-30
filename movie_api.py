@@ -14,14 +14,6 @@ def fetch_movie_data(movie_name):
     return parse_info(response.json(), 'search')
 
 
-# def fetch_movie_by_genre(user_genre):
-#     genre_id=''
-#     for code,genre in genre_dict.items():
-#         if genre.lower()==user_genre:
-#             genre_id=code
-#     url = f"{BASE_URL}/discover/movie?api_key={API_KEY}&with_genres={genre_id}"
-#     response = requests.get(url)
-#     return parse_info(response.json(),'genre')
 def fetch_movie_by_genre(user_genre):
     genre_id = ''
     for code, genre in genre_dict.items():
@@ -69,31 +61,6 @@ def parse_info(raw_info, source, user_genre=None):
     else:
         return None
 
-
-#
-# def parse_info(raw_info,source):
-#     if raw_info['results']:
-#         movies=[]
-#         for info in raw_info['results']:
-#             #get just the names of the genres without the codes
-#             genre__names = [genre_dict[genre] for genre in info['genre_ids']]
-#             genre_string=', '.join(genre__names)
-#             movie_info = {
-#                 'Title': info.get('title'),
-#                 'Release_date': info.get('release_date'),
-#                 'Overview': info.get('overview'),
-#                 'Genres': genre_string,
-#                 'Rating': info.get('vote_average'),
-#                 'Number of ratings': info.get('vote_count')
-#             }
-#             movies.append(movie_info)
-#
-#         if source=='search':
-#             return movies[0]
-#         elif source=='genre':
-#             return random.choice(movies)
-#     else:
-#         return None
 #  -------------------------new mariia
 def fetch_movie_by_genre_and_year(genre, year):
     genre_id = ''
@@ -118,6 +85,5 @@ def fetch_movie_recommendations(year):
     # print(data)
 
     return parse_info(response.json(), 'recommendations')
-
 
 

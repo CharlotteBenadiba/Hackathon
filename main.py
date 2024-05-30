@@ -4,55 +4,57 @@ import database
 import recommender
 from faker import Faker
 import argparse
-
+import read_write
+import random
 
 def menu():
     print('Welcome to MovieMate!')
-    user_choice = input('1. Search for a movie\n2. Browse genres\n3. Filter movies by year/genre\n4. Exit\n>')
+    user_choice = input('1. Search for a movie\n2. Browse genres\n3. Filter movies by year/genre\n4. Watchlist\n5. Exit\n>')
 
     # Используем цикл while для проверки корректности ввода
-    while user_choice not in ('1', '2', '3', '4'):
-        print('Invalid input. Please enter a number between 1 and 4.')
-        user_choice = input('1. Search for a movie\n2. Browse genres\n3. Filter movies by year/genre\n4. Exit\n>')
+    while user_choice not in ('1', '2', '3', '4','5'):
+        print('Invalid input. Please enter a number between 1 and 5.')
+        user_choice = input('1. Search for a movie\n2. Browse genres\n3. Filter movies by year/genre\n4. Watchlist\n5. Exit\n>')
 
     # Преобразуем пользовательский ввод в целое число для возврата
     return int(user_choice)
-    #
-    #
-    # print('Welcome to MovieMate!')
-    # user_choice=input('1.Search for a movie\n2.Browse genres\n3.Filter movis by year/genre\n4.Exit\n>')
-    # #     user_choice=input('1.Search for a movie\n2.Browse genres\n3.Get recommendations\n4.Exit\n>')
-    # while user_choice not in ('1234'):
-    #     user_choice=('Invalid input')
-    # else:
-    #     if user_choice=='1':
-    #         return 1
-    #     elif user_choice=='2':
-    #         return 2
-    #     elif user_choice=='3':
-    #         return 3
-    #     elif user_choice=='4':
-    #         return 4
-    #
 
 
-def movie_search():
-    movie = input('\nType the movie name\n\n')
+
+def movie_search(movie=None):
+    if movie is None:
+        movie = input('\nType the movie name\n')
     result = movie_api.fetch_movie_data(movie)
+    if result:
+        for key, value in result.items():
+            print(f'{key}: {value}')
+    
+    else:
+        print('No movie found. Check spelling')
     return result
+
 
 
 def browse_genre():
-    genre = input('\nType the genre you want\n\n')
+    genre = input('\nType the genre you want\n')
     result = movie_api.fetch_movie_by_genre(genre)
+    if result:
+        counter=1
+        index= random.randint(0,10)
+        for movie in result[index:index+5]:
+            print(f'Movie number {counter}')
+            counter+=1
+            for key,value in movie.items():
+                print (f'{key}: {value}')
+            print()
+            
+    else:
+        print('No genre found')
     return result
 
 
-# Need to add in the database code
-def watchlist(search_movie):
-    query = (f'insert into watchlist values{search_movie}')
-    print('Success')
 
+        
 
 # ----------------new mariia
 def get_recommendations_by_genre_and_year():
@@ -135,23 +137,16 @@ def print_movie_info(movie):
 
 def main():
     user_input = menu()
-    while user_input != 4:
+    search_again='y'
+    file_access=read_write()
+    while user_input != 5:
         if user_input == 1:
-            movie = movie_search()
-            if movie is not None:
-                if movie is not None:
-                    for key, value in movie.items():
-                        print(f'{key}: {value}')
-                else:
-                    print('No movie found. Check spelling')
 
-            save = input('\nSave to watchlist?Y/N\n')
-            if save.lower() == 'y':
-                watchlist(movie)
-            search_again = input('\nSearch again? Y/N\n')
-            while search_again.lower() == 'y':
-                print()
-                movie_search()
+            while search_again=='y':
+                movie=movie_search()
+                save = input('\nSave to watchlist?Y/N\n')
+                if save.lower() == 'y':
+                    file_access.add_watchlist(movie)
                 search_again = input('\nSearch again? Y/N\n')
             else:
                 print()
@@ -159,23 +154,19 @@ def main():
 
         elif user_input == 2:
             genre_list = browse_genre()
-
-            if genre_list is not None:
-
-                for key, value in genre_list.items():
-                    print(f'{key}: {value}')
-
-            else:
-                print('No genre found. Check spelling')
-
-            search_again = input('\nSearch again? Y/N\n')
             while search_again.lower() == 'y':
-                print()
-                genre_list = browse_genre()
+                save=input('Save a movie to watchlist? Y/N\n')
+                if save.lower()=='y':
+                    movie_to_save=input('What is the title of the movie you want to save?\n')
+                    if file_access.check_movie_title(movie_to_save,genre_list):
+                        file_access.add_watchlist(file_access.check_movie_title(movie_to_save,genre_list))
+                    else:
+                        movie_to_save=input('Invalid option. Enter a title from the list')
                 search_again = input('\nSearch again? Y/N\n')
             else:
                 print()
                 user_input = menu()
+
         # ----------new mariia
         elif user_input == 3:
             choice = input(
@@ -202,13 +193,20 @@ def main():
             print()
             user_input = menu()
 
-        else:
-            print('Thanks, come again!')
-            break
+        elif user_input==4:
+            file_access.fetch_watchlist()
+            print()
+            user_input=menu()
+            
+    
 
     else:
         print('Thanks, come again!')
+           
 
 
 if __name__ == "__main__":
     main()
+
+  
+

@@ -1,0 +1,28 @@
+Title: Garfield
+Release_date: 2004-06-10
+Overview: Garfield, the fat, lazy, lasagna lover, has everything a cat could want. But when Jon, in an effort to impress the Liz - the vet and an old high-school crush - adopts a dog named Odie and brings him home, Garfield gets the one thing he doesn't want. Competition.
+Genres: Animation, Comedy, Family
+Rating: 5.703
+Number of ratings: 3849
+
+Title: The Terminator
+Release_date: 1984-10-26
+Overview: In the post-apocalyptic future, reigning tyrannical supercomputers teleport a cyborg assassin known as the "Terminator" back to 1984 to kill Sarah Connor, whose unborn son is destined to lead insurgents against 21st century mechanical hegemony. Meanwhile, the human-resistance movement dispatches a lone warrior to safeguard Sarah. Can he stop the virtually indestructible killing machine?
+Genres: Action, Thriller, Science Fiction
+Rating: 7.665
+Number of ratings: 12576
+
+Title: Deadpool
+Release_date: 2016-02-09
+Overview: The origin story of former Special Forces operative turned mercenary Wade Wilson, who, after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.
+Genres: Action, Adventure, Comedy
+Rating: 7.612
+Number of ratings: 29937
+
+Title: Arrival
+Release_date: 2016-11-10
+Overview: Taking place after alien crafts land around the world, an expert linguist is recruited by the military to determine whether they come in peace or are a threat.
+Genres: Drama, Science Fiction, Mystery
+Rating: 7.603
+Number of ratings: 17294
+
