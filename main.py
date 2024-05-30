@@ -63,24 +63,27 @@ def main():
 
 
     user_input=menu()
+    search_again='y'
     while user_input != 4:
         if user_input==1:
-            movie=movie_search()
-            if movie is not None:
+            while search_again!='n':
+                movie=movie_search()
                 if movie is not None:
-                    for key,value in movie.items():
-                        print(f'{key}: {value}')
-                else:
-                    print('No movie found. Check spelling')
+                    if movie is not None:
+                        for key,value in movie.items():
+                            print(f'{key}: {value}')
+                    else:
+                        print('No movie found. Check spelling')
 
-            save = input('\nSave to watchlist?Y/N\n')
-            if save.lower()=='y':
-                watchlist(movie)
-            search_again = input('\nSearch again? Y/N\n')
-            while search_again.lower()=='y':
-                print()
-                movie_search()
-                search_again=input('\nSearch again? Y/N\n')
+                save = input('\nSave to watchlist?Y/N\n')
+                if save.lower()=='y':
+                    watchlist(movie)
+                search_again = input('\nSearch again? Y/N\n')
+            
+            # while search_again.lower()=='y':
+            #     print()
+            #     movie_search()
+            #     search_again=input('\nSearch again? Y/N\n')
             else: 
                 print()
                 user_input=menu()
