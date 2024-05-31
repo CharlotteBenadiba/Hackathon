@@ -13,7 +13,6 @@ def fetch_movie_data(movie_name):
     response = requests.get(url)
     return parse_info(response.json(), 'search')
 
-
 def fetch_movie_by_genre(user_genre):
     genre_id = ''
     for code, genre in genre_dict.items():
@@ -29,12 +28,28 @@ def fetch_movie_by_genre(user_genre):
         print("Invalid genre.")
         return None
 
+def fetch_movie_by_genre_and_year(genre, year):
+    genre_id = ''
+    for code, name in genre_dict.items():
+        if name.lower() == genre.lower():
+            genre_id = code
+            break
 
-def fetch_movie_details(movie_id):
-    url = f"{BASE_URL}/movie/{movie_id}?api_key={API_KEY}"
+    if genre_id:
+        url = f"{BASE_URL}/discover/movie?api_key={API_KEY}&primary_release_year={year}&with_genres={genre_id}"
+        response = requests.get(url)
+        return parse_info(response.json(), 'genre', genre)
+    else:
+        print("Invalid genre.")
+        return None
+
+def fetch_movie_recommendations(year):
+    url = f"{BASE_URL}/discover/movie?api_key={API_KEY}&primary_release_year={year}&sort_by=vote_average.desc"
     response = requests.get(url)
-    return parse_info(response.json())
+    data = response.json()
+    # print(data)
 
+    return parse_info(response.json(), 'recommendations')
 
 def parse_info(raw_info, source, user_genre=None):
     if 'results' in raw_info:
@@ -60,30 +75,3 @@ def parse_info(raw_info, source, user_genre=None):
             return movies
     else:
         return None
-
-#  -------------------------new mariia
-def fetch_movie_by_genre_and_year(genre, year):
-    genre_id = ''
-    for code, name in genre_dict.items():
-        if name.lower() == genre.lower():
-            genre_id = code
-            break
-
-    if genre_id:
-        url = f"{BASE_URL}/discover/movie?api_key={API_KEY}&primary_release_year={year}&with_genres={genre_id}"
-        response = requests.get(url)
-        return parse_info(response.json(), 'genre', genre)
-    else:
-        print("Invalid genre.")
-        return None
-
-
-def fetch_movie_recommendations(year):
-    url = f"{BASE_URL}/discover/movie?api_key={API_KEY}&primary_release_year={year}&sort_by=vote_average.desc"
-    response = requests.get(url)
-    data = response.json()
-    # print(data)
-
-    return parse_info(response.json(), 'recommendations')
-
-

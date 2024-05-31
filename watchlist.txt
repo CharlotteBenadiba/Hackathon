@@ -26,3 +26,24 @@ Genres: Drama, Science Fiction, Mystery
 Rating: 7.603
 Number of ratings: 17294
 
+Title: Garfield
+Release_date: 2004-06-10
+Overview: Garfield, the fat, lazy, lasagna lover, has everything a cat could want. But when Jon, in an effort to impress the Liz - the vet and an old high-school crush - adopts a dog named Odie and brings him home, Garfield gets the one thing he doesn't want. Competition.
+Genres: Animation, Comedy, Family
+Rating: 5.7
+Number of ratings: 3852
+
+Title: Gifted
+Release_date: 2017-04-07
+Overview: Frank, a single man raising his child prodigy niece Mary, is drawn into a custody battle with his mother.
+Genres: Drama, Comedy
+Rating: 8.036
+Number of ratings: 5232
+
+Title: Flubber
+Release_date: 1997-11-26
+Overview: Professor Phillip Brainard, an absent minded professor, works with his assistant Weebo, trying to create a substance that's a new source of energy and that will save Medfield College where his sweetheart Sara is the president. He has missed his wedding twice, and on the afternoon of his third wedding, Professor Brainard creates flubber, which allows objects to fly through the air.
+Genres: Comedy, Family, Science Fiction
+Rating: 5.642
+Number of ratings: 2270
+

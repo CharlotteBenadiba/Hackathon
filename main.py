@@ -1,9 +1,5 @@
 import json
 import movie_api
-import database
-import recommender
-from faker import Faker
-import argparse
 import read_write
 import random
 
@@ -19,8 +15,6 @@ def menu():
     # Преобразуем пользовательский ввод в целое число для возврата
     return int(user_choice)
 
-
-
 def movie_search(movie=None):
     if movie is None:
         movie = input('\nType the movie name\n')
@@ -32,8 +26,6 @@ def movie_search(movie=None):
     else:
         print('No movie found. Check spelling')
     return result
-
-
 
 def browse_genre():
     genre = input('\nType the genre you want\n')
@@ -52,14 +44,9 @@ def browse_genre():
         print('No genre found')
     return result
 
-
-
-        
-
-# ----------------new mariia
 def get_recommendations_by_genre_and_year():
-    genre = input('\nType the genre you want\n\n')
-    year = input('\nType the year you want\n\n')
+    genre = input('\nType the genre you want\n')
+    year = input('\nType the year you want\n')
     result = movie_api.fetch_movie_by_genre_and_year(genre, year)
     if result:
         index = 5
@@ -67,7 +54,7 @@ def get_recommendations_by_genre_and_year():
             print_movie_info(movie)
 
         while index < len(result):
-            more = input("Do you want to see more movies? (yes/no): ").lower()
+            more = input("Do you want to see more movies? (yes/no):\n").lower()
             if more == 'yes':
                 for movie in result[index:index + 5]:
                     print_movie_info(movie)
@@ -82,7 +69,7 @@ def get_recommendations_by_genre_and_year():
 
 
 def get_recommendations_by_year():
-    year = input('\nType the year you want\n\n')
+    year = input('\nType the year you want\n')
     result = movie_api.fetch_movie_recommendations(year)
     if result:
         index = 5
@@ -90,7 +77,7 @@ def get_recommendations_by_year():
             print_movie_info(movie)
 
         while index < len(result):
-            more = input("Do you want to see more movies? (yes/no): ").lower()
+            more = input("Do you want to see more movies? (yes/no):\n").lower()
             if more == 'yes':
                 for movie in result[index:index + 5]:
                     print_movie_info(movie)
@@ -104,8 +91,9 @@ def get_recommendations_by_year():
         print('No recommendations found.')
 
 
+
 def get_recommendations_by_genre():
-    genre = input('\nType the genre you want\n\n')
+    genre = input('\nType the genre you want\n')
     result = movie_api.fetch_movie_by_genre(genre)
     if result:
         index = 5
@@ -113,7 +101,7 @@ def get_recommendations_by_genre():
             print_movie_info(movie)
 
         while index < len(result):
-            more = input("Do you want to see more movies? (yes/no): ").lower()
+            more = input("Do you want to see more movies? (yes/no):\n").lower()
             if more == 'yes':
                 for movie in result[index:index + 5]:
                     print_movie_info(movie)
@@ -138,15 +126,13 @@ def print_movie_info(movie):
 def main():
     user_input = menu()
     search_again='y'
-    file_access=read_write()
     while user_input != 5:
         if user_input == 1:
-
             while search_again=='y':
                 movie=movie_search()
                 save = input('\nSave to watchlist?Y/N\n')
                 if save.lower() == 'y':
-                    file_access.add_watchlist(movie)
+                    read_write.add_watchlist(movie)
                 search_again = input('\nSearch again? Y/N\n')
             else:
                 print()
@@ -158,8 +144,8 @@ def main():
                 save=input('Save a movie to watchlist? Y/N\n')
                 if save.lower()=='y':
                     movie_to_save=input('What is the title of the movie you want to save?\n')
-                    if file_access.check_movie_title(movie_to_save,genre_list):
-                        file_access.add_watchlist(file_access.check_movie_title(movie_to_save,genre_list))
+                    if read_write.check_movie_title(movie_to_save,genre_list):
+                        read_write.add_watchlist(read_write.check_movie_title(movie_to_save,genre_list))
                     else:
                         movie_to_save=input('Invalid option. Enter a title from the list')
                 search_again = input('\nSearch again? Y/N\n')
@@ -167,12 +153,11 @@ def main():
                 print()
                 user_input = menu()
 
-        # ----------new mariia
         elif user_input == 3:
             choice = input(
-                "Do you want to find movies by year, by genre or both? Enter 'year', 'genre' or 'both': ").lower()
+                "Do you want to find movies by year, by genre or both? Enter 'year', 'genre' or 'both':\n").lower()
             while choice not in ('year', 'genre', 'both'):
-                choice = input("Invalid input. Please enter 'year' or 'genre': ").lower()
+                choice = input("Invalid input. Please enter 'year' or 'genre':\n").lower()
             else:
                 if choice == 'year':
                     recommendations = get_recommendations_by_year()
@@ -185,21 +170,17 @@ def main():
                     print(f"Title: {movie['Title']}")
                     print(f"Year: {movie['Release_date']}")
                     print(f"Overview: {movie['Overview']}")
-                    print(f"Genres: {movie['Genres']}")
-                    print()
+                    print(f"Genres: {movie['Genres']}")    
+                print()
             else:
                 print('No recommendations found.')
-
             print()
             user_input = menu()
 
         elif user_input==4:
-            file_access.fetch_watchlist()
+            read_write.fetch_watchlist()
             print()
             user_input=menu()
-            
-    
-
     else:
         print('Thanks, come again!')
            
