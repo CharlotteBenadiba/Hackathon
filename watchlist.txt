@@ -47,3 +47,17 @@ Genres: Comedy, Family, Science Fiction
 Rating: 5.642
 Number of ratings: 2270
 
+Title: Wonka
+Release_date: 2023-12-06
+Overview: Willy Wonka – chock-full of ideas and determined to change the world one delectable bite at a time – is proof that the best things in life begin with a dream, and if you’re lucky enough to meet Willy Wonka, anything is possible.
+Genres: Comedy, Family, Fantasy
+Rating: 7.165
+Number of ratings: 3025
+
+Title: The Fall Guy
+Release_date: 2024-04-24
+Overview: Fresh off an almost career-ending accident, stuntman Colt Seavers has to track down a missing movie star, solve a conspiracy and try to win back the love of his life while still doing his day job.
+Genres: Action, Comedy
+Rating: 7.331
+Number of ratings: 919
+

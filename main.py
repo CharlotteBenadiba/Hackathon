@@ -20,11 +20,14 @@ def movie_search(movie=None):
         movie = input('\nType the movie name\n')
     result = movie_api.fetch_movie_data(movie)
     if result:
+        print()
         for key, value in result.items():
             print(f'{key}: {value}')
     
     else:
         print('No movie found. Check spelling')
+        movie_search()
+
     return result
 
 def browse_genre():
@@ -41,7 +44,8 @@ def browse_genre():
             print()
             
     else:
-        print('No genre found')
+        print('No genre found. Check spelling')
+        browse_genre()
     return result
 
 def get_recommendations_by_genre_and_year():
@@ -91,7 +95,6 @@ def get_recommendations_by_year():
         print('No recommendations found.')
 
 
-
 def get_recommendations_by_genre():
     genre = input('\nType the genre you want\n')
     result = movie_api.fetch_movie_by_genre(genre)
@@ -127,9 +130,9 @@ def main():
     user_input = menu()
     search_again='y'
     while user_input != 5:
-        if user_input == 1:
+        if user_input == 1:                
+            movie=movie_search()
             while search_again=='y':
-                movie=movie_search()
                 save = input('\nSave to watchlist?Y/N\n')
                 if save.lower() == 'y':
                     read_write.add_watchlist(movie)
@@ -139,8 +142,9 @@ def main():
                 user_input = menu()
 
         elif user_input == 2:
+            search_again='y'
             genre_list = browse_genre()
-            while search_again.lower() == 'y':
+            while search_again.lower() == 'y': 
                 save=input('Save a movie to watchlist? Y/N\n')
                 if save.lower()=='y':
                     movie_to_save=input('What is the title of the movie you want to save?\n')
