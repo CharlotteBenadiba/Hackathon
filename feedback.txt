@@ -1,0 +1,9 @@
+hackathon feedback
+
+- Technology 6/8 : The project integrates several advanced technologies, including using the TMDB API for fetching movie data, requests for API interaction, and handling file operations for saving and retrieving the watchlist. The code demonstrates a good understanding of API usage, parsing JSON responses, and managing user input. Integrate a database for storing watchlist data instead of using a text file for more robust data management.
+- Completion 8/8 : The project is fully functional, allowing users to search for movies, browse genres, filter movies by year and genre, and manage a watchlist. All planned features are implemented and working as intended.
+- Learning 7/8 : The project indicates significant learning effort, including API integration, JSON parsing, handling file I/O, and building a user-friendly interface for interacting with the movie data. The student has demonstrated a strong grasp of various technologies and concepts. Experiment with more sophisticated data handling techniques, such as using databases or implementing user authentication for personalized features.
+
+Total 21/24
+
+Very good project ! You demonstrate a good understanding of API usage, data parsing, and user interface design, with room for further enhancements in data management and personalized features. Well done !
